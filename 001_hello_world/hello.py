@@ -4,12 +4,21 @@ import scipy.constants as c
 import matplotlib.pyplot as plt
 
 print("Hello World!")
-# test numpy
+# test numpy and scipy
 print(n.pi)
-
-# test scipy
 print(c.pi)
 
-# test matplotlib
-plt.plot(n.random.randn(10),".")
+# create and plot a complex sinusoidal signal
+sample_rate = 44100.0 # samples per second
+t = n.arange(100)/sample_rate # 100 samples
+# complex sinusoid
+csin = n.exp(1j*2.0*n.pi*440.0*t) # 440 Hz signal
+plt.plot(t*1e3, csin.real,color="blue",
+         label="$\mathrm{Re}\{z(t)\}$")
+plt.plot(t*1e3, csin.imag,color="red",
+         label="$\mathrm{Im}\{z(t)\}$")
+plt.xlabel("Time (ms)")
+plt.ylabel("$z(t)=e^{i\omega t}$")
+plt.legend()
 plt.show()
+
