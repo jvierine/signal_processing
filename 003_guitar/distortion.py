@@ -3,7 +3,7 @@ import scipy.io.wavfile as sio
 import matplotlib.pyplot as plt
 
 # amplifier gain
-alpha=100.0
+alpha=20.0
 
 # the clipping amplitude of the amplifier
 beta=0.9

@@ -8,11 +8,9 @@ print("Hello World!")
 print(n.pi)
 print(c.pi)
 
-# create and plot a complex sinusoidal signal
-sample_rate = 44100.0 # samples per second
-t = n.arange(100)/sample_rate # 100 samples
-# complex sinusoid
-csin = n.exp(1j*2.0*n.pi*440.0*t) # 440 Hz signal
+sample_rate = 44100.0 # 44100 samples per second
+t = n.arange(100)/sample_rate 
+csin = n.exp(1j*2.0*n.pi*440.0*t) # A 440 Hz signal
 plt.plot(t*1e3, csin.real,color="blue",
          label="$\mathrm{Re}\{z(t)\}$")
 plt.plot(t*1e3, csin.imag,color="red",
