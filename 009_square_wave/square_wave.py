@@ -20,6 +20,7 @@ for k in range(1,N):
 square_wave=n.zeros(len(t),dtype=n.float64)
 square_wave[(0<t)&(t<P)]=1.0
 
+plt.figure(figsize=(0.8*6,0.8*4))
 plt.plot(t,square_wave,label="Square wave",color="black")
 plt.plot(t,zn,label="Fourier series approximation",color="blue")
 plt.legend()
