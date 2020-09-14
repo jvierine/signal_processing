@@ -16,10 +16,10 @@ def comp(x,alpha=1.0,beta=1e3):
 # download from: http://kaira.uit.no/fys2006/guitar_clean.wav
 # Original author: LG downloaded from freesound.org,
 # Original file name: Guitar clean rif.wav
-wav=sio.read("guitar_clean.wav")
+wav=sio.read("7na.wav")
 sample_rate=wav[0]
 # read only one stereo channel
-x=wav[1][:,0]
+x=wav[1]
 # scale to near unity
 x=0.9*x/n.max(n.abs(x))
 
@@ -42,5 +42,5 @@ out=comp(x,alpha,beta)
 out=0.9*out/n.max(n.abs(out))
 
 # write compressed output to wav file. 
-sio.write("guitar_comp.wav",sample_rate,out)
+sio.write("guitar_comp.wav",sample_rate,n.array(out,dtype=n.float32))
 
