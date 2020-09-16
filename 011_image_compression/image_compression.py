@@ -31,13 +31,14 @@ image=si.imread("husky.jpg", flatten=True)
 
 # how much do we compress the image. 0 is no compression, 1.0 is nearly 100% compression
 # (we still have at least one spectral component)
-compression_ratio=0.95
+compression_ratio=0.99999
 
 plt.figure(figsize=(12,12))
 # show original image
 plt.subplot(221)
 plt.imshow(image,cmap="gray",vmin=0,vmax=255)
-
+plt.xlabel("x")
+plt.ylabel("y")
 plt.title("Original Image")
 
 # show 2D fourier transform of image
@@ -71,6 +72,9 @@ plt.title("2D FFT with smallest spectral components removed")
 plt.subplot(223)
 # show compressed image
 plt.imshow(comp_imag,cmap="gray",vmin=0,vmax=255)
+plt.xlabel("x")
+plt.ylabel("y")
+
 plt.title("%1.1f percent compressed image"%(100.0*compression_ratio))
 plt.tight_layout()
 plt.savefig("image_compression.png")
