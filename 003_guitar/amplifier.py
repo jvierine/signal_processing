@@ -19,9 +19,6 @@ sample_rate=wav[0]
 # read only one stereo channel
 x=wav[1][:,0]
 
-# scale to near unity, as the maximum allowed amplitude is +/- 1 for an audio waveform
-x=0.9*x/n.max(n.abs(x))
-
 # create time vector (independent variable)
 time_vec=n.arange(len(x))/float(sample_rate)
 
@@ -34,9 +31,12 @@ plt.ylabel("Relative air pressure $y(t)$")
 plt.show()
 
 out=amplify(x,alpha)
+
 # scale maximum absolute amplitude to 0.9, because 1.0 is the maximum allowed
 # by the file format
 out = 0.9*out/n.max(n.abs(out)) 
-# write compressed output to wav file. 
-sio.write("guitar_amp.wav",sample_rate,out)
+# write compressed output to wav file.
+
+# Patch from Jostain and Adrian (cast to 32 bit float)
+sio.write("guitar_amp.wav",sample_rate,n.array(out,dtype=n.float32))
 
