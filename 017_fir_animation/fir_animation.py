@@ -84,11 +84,7 @@ def ex1():
     # boxcar
     h = n.zeros(1)
     h[0]=1.0
-
-    
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex1.gif', writer='imagemagick', fps=5)
-#    plt.show()
+    return(x,h)
 
 def ex2():
     N=100
@@ -100,9 +96,7 @@ def ex2():
     h = n.zeros(10)
     h[0:10]=n.random.rand(10)-0.5
 
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex2.gif', writer='imagemagick', fps=5)    
-#    plt.show()
+    return(x,h)
 
 def ex3():
     N=100
@@ -113,10 +107,7 @@ def ex3():
     # boxcar
     h = n.zeros(10)
     h[0:10]=1.0/5.0
-
-    ani = animation.FuncAnimation(fig, animate, frames=n.arange(100), interval=100, fargs=(x,h))
-    ani.save('ex3.gif', writer='imagemagick', fps=5)        
-#    plt.show()
+    return(x,h)
 
 def ex4():
     N=100
@@ -127,11 +118,7 @@ def ex4():
     # boxcar
     h = n.zeros(20)
     h[0:20]=1.0/5.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex4.gif', writer='imagemagick', fps=5)            
-#    plt.show()
-
+    return(x,h)
 
 def ex5():
     N=100
@@ -142,25 +129,19 @@ def ex5():
     # boxcar
     h = n.zeros(10)
     h[0:10]=1.0/5.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex5.gif', writer='imagemagick', fps=5)                
-#    plt.show()
+    return(x,h)
 
 def ex6():
     N=100
     # random x
     x = n.zeros(N)
-    x[(N/2):(N/2+10)]=1.0
+    x[int(N/2):int(N/2+10)]=1.0
     
     # boxcar
     h = n.zeros(2)
     h[0]=1.0
-    h[1]=-1.0    
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex6.gif', writer='imagemagick', fps=5)                    
-#    plt.show()
+    h[1]=-1.0
+    return(x,h)
 
 def ex7():
     N=100
@@ -171,10 +152,7 @@ def ex7():
     # boxcar
     h = n.zeros(5)
     h[4]=1.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex7.gif', writer='imagemagick', fps=5)                        
-#    plt.show()
+    return(x,h)
 
 
 def ex8():
@@ -188,10 +166,7 @@ def ex8():
     h[0]=1/4.0
     h[1]=1.0/2.0
     h[2]=1.0/4.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex8.gif', writer='imagemagick', fps=5)                            
-#    plt.show()
+    return(x,h)
 
 
 def ex9():
@@ -205,11 +180,7 @@ def ex9():
     h[0]=1/4.0
     h[1]=1.0/2.0
     h[2]=1.0/4.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex9.gif', writer='imagemagick', fps=5)                                
-#    plt.show()
-
+    return(x,h)
 
 def ex10():
     N=100
@@ -224,9 +195,7 @@ def ex10():
     h[0]=1
     h[1]=-1.0
 
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
-    ani.save('ex10.gif', writer='imagemagick', fps=5)                                    
-#    plt.show()
+    return(x,h)
 
 
 def ex11():
@@ -235,15 +204,11 @@ def ex11():
     x = n.zeros(N)
     rs=n.array([1,1,1,1,1,-1,-1,1,1,-1.0,1,-1,1])
     L=len(rs)
-    x[(N/2):(N/2+L)]=rs
+    x[int(N/2):int(N/2+L)]=rs
     
     # boxcar
     h = rs[::-1] #n.zeros(20)
-#    h[0:10]=1.0/5.0
-
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h,0.1))
-#    plt.show()    
-    ani.save('ex11.gif', writer='imagemagick', fps=5)        
+    return(x,h)
 
 def ex12():
     N=100
@@ -257,47 +222,18 @@ def ex12():
     h = n.fft.fftshift(n.fft.ifft(1.0/n.fft.fft(rs,1024)).real)
     h = h[(512-40):(512+40)]*3.0
 
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h,1.0/3.0))
-#    plt.show()
-#    exit(0)
-    ani.save('ex12.gif', writer='imagemagick', fps=5)        
+    return(x,h)
+
+def create_animation(x,h,file_name="example"):
+    y=n.convolve(x,h)
+    # scale the output signal in such a way that the largest
+    # value has amplitude 1.0
+    scale=1.0/n.max(y)
+    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h,scale))
+    ani.save("%s.gif"%(file_name), writer='imagemagick', fps=5)
     
-
-# x=random, h=boxcar
-print("ex3")
-ex3()
-print("ex12")
-ex12()
-
-
-# kroenecker delta
-print("ex1")
-ex1()
-print("ex2")
-# h=random
-ex2()
-
-
-# x=random (full), h=boxcar
-ex4()
-
-# boxcar boxcar
-ex5()
-
-# 1, -1
-ex6()
-
-# delay
-ex7()
-
-# frequency = pi/4
-ex8()
-
-# delay
-# frequency = pi/20
-ex9()
-
-# convlution example, chap
-ex10()
-
-ex11()    
+funs = [ex3,ex12,ex1,ex2,ex4,ex5,ex7,ex8,ex9,ex10,ex11]
+for f in funs:
+    print("Creating %s.gif"%(f.__name__))
+    x,h=f()
+    create_animation(x,h,file_name=f.__name__)
