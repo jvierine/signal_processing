@@ -10,7 +10,7 @@ import time
 import numpy as n
 
 fig = plt.figure(figsize=(1.5*10,1.5*6.4),facecolor='white')
-ax1 = fig.add_subplot(1,1,1,axisbg='white')
+ax1 = fig.add_subplot(1,1,1)
 plt.axis('off')    
 
 
@@ -31,23 +31,26 @@ def conv(x,h,t):
     return([y,hd])
 
 def animate(i,x,h,scale=1.0):
+#    print(i)
+
     ax1.clear()
     N=len(x)
+
     L=len(h)
     idx = i%N
+
     r=conv(x,h,idx)
     t = n.arange(N)
     y=r[0]
     hd=r[1]
 
-
-    
-    ax1.vlines(t[0:idx],n.repeat(0,N),y[0:idx]*0.8*scale)
+    nidx=n.repeat(0,N)
+    ax1.vlines(t[0:idx],nidx[0:idx],y[0:idx]*0.8*scale,color="black")
     ax1.scatter(t[0:idx],y[0:idx]*0.8*scale,facecolor="black")
     plt.text(N-3,0.5,"$y[n]$",size=20)
     plt.plot([0,N],[0,0],color="black")    
     
-    ax1.vlines(t,n.repeat(2,N),x*0.8+2)
+    ax1.vlines(t,n.repeat(2,N),x*0.8+2,color="black")
     ax1.scatter(t,x*0.8+2,facecolor="black")
     plt.text(N-3,2.5,"$x[k]$",size=20)
     plt.plot([0,N],[2,2],color="black")
@@ -55,7 +58,7 @@ def animate(i,x,h,scale=1.0):
     hidx=n.arange(n.max([0,idx-L]),n.min([idx,N]))
 
     hdc=n.repeat(4,L)                  
-    ax1.vlines(t[hidx],hdc[0:len(hidx)],hd[hidx]*0.8+4)
+    ax1.vlines(t[hidx],hdc[0:len(hidx)],hd[hidx]*0.8+4,color="black")
     ax1.scatter(t[hidx],hd[hidx]*0.8+4,facecolor="black")
     plt.text(N-3,4.5,"$h[%d-k]$"%(i),size=20)    
 
@@ -66,10 +69,6 @@ def animate(i,x,h,scale=1.0):
     ax1.text(idx-1+1,1,"$y[%d]=\sum_{k=-\infty}^{\infty}x[k]h[%d-k]$"%(i,i),size=20,zorder=-1)            
     
     plt.plot([0,N],[4,4],color="black")
-
-
-    
-
     plt.axis('off')    
     plt.ylim([-1,5])
 
@@ -80,7 +79,7 @@ def ex1():
     N=100
     # kroenecker delta
     x = n.zeros(N)
-    x[(N/2):(N/2+10)]=n.random.rand(10)-0.5
+    x[int(N/2):int(N/2+10)]=n.random.rand(10)-0.5
     
     # boxcar
     h = n.zeros(1)
@@ -95,7 +94,7 @@ def ex2():
     N=100
     # kroenecker delta
     x = n.zeros(N)
-    x[N/2]=1.0
+    x[int(N/2)]=1.0
     
     # boxcar
     h = n.zeros(10)
@@ -109,20 +108,13 @@ def ex3():
     N=100
     # random x
     x = n.zeros(N)
-    x[(N/2):(N/2+10)]=n.random.rand(10)-0.5    
+    x[int(N/2):int(N/2+10)]=n.random.rand(10)-0.5    
     
     # boxcar
     h = n.zeros(10)
     h[0:10]=1.0/5.0
 
-    for i in range(45,74):
-        animate(i,x,h)
-        plt.tight_layout()        
-        plt.savefig("ex3_%03d.png"%(i))
-#        plt.close()
-
-    
-    ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h))
+    ani = animation.FuncAnimation(fig, animate, frames=n.arange(100), interval=100, fargs=(x,h))
     ani.save('ex3.gif', writer='imagemagick', fps=5)        
 #    plt.show()
 
@@ -145,7 +137,7 @@ def ex5():
     N=100
     # random x
     x = n.zeros(N)
-    x[(N/2):(N/2+10)]=1.0
+    x[int(N/2):int(N/2+10)]=1.0
     
     # boxcar
     h = n.zeros(10)
@@ -259,7 +251,7 @@ def ex12():
     x = n.zeros(N)
     rs=n.array([1,1,1,1,1,-1,-1,1,1,-1.0,1,-1,1])
     L=len(rs)
-    x[(N/2-20):(N/2+L-20)]=rs
+    x[int(N/2-20):int(N/2+L-20)]=rs
 
     # truncated inverse filter
     h = n.fft.fftshift(n.fft.ifft(1.0/n.fft.fft(rs,1024)).real)
@@ -272,8 +264,9 @@ def ex12():
     
 
 # x=random, h=boxcar
+print("ex3")
 ex3()
-
+print("ex12")
 ex12()
 
 
