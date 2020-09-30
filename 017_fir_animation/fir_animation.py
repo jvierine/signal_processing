@@ -155,6 +155,34 @@ def ex7():
     return(x,h)
 
 
+def numerical_derivative():
+    N=100
+    # random x
+    x = n.zeros(N)
+    x[int(-N/2-10):int(-N/2+10)]=1.0
+    
+    # numerical derivative
+    h = n.zeros(2)
+    h[0]=0.5
+    h[1]=-0.5
+    return(x,h)
+
+def diff2():
+    N=100
+    # random x
+    x = n.zeros(N)
+    x[:]=1.0
+    x[int(N/2)-10]=0.0
+    x[int(N/2)+10]=2.0
+    
+    # numerical derivative
+    h = n.zeros(3)
+    h[0]=0.5
+    h[1]=-1.0
+    h[2]=0.5
+    return(x,h)
+
+
 def ex8():
     N=100
     # random x
@@ -225,14 +253,18 @@ def ex12():
     return(x,h)
 
 def create_animation(x,h,file_name="example"):
+    # scale signals
+    x=x/n.max(n.abs(x))
+    h=h/n.max(n.abs(h))
     y=n.convolve(x,h)
     # scale the output signal in such a way that the largest
     # value has amplitude 1.0
-    scale=1.0/n.max(y)
+    scale=1.0/n.max(n.abs(y))
     ani = animation.FuncAnimation(fig, animate, interval=100, fargs=(x,h,scale))
     ani.save("%s.gif"%(file_name), writer='imagemagick', fps=5)
     
-funs = [ex3,ex12,ex1,ex2,ex4,ex5,ex7,ex8,ex9,ex10,ex11]
+funs = [diff2,numerical_derivative,ex3,ex12,ex1,ex2,ex4,ex5,ex7,ex8,ex9,ex10,ex11]
+
 for f in funs:
     print("Creating %s.gif"%(f.__name__))
     x,h=f()
