@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # a sweep of -\pi to \pi in normalized angular frequency
 omhat = n.linspace(-n.pi,n.pi,num=500)
-H=n.exp(1j*omhat)-n.exp(-1j*omhat)
+H=0.5*n.exp(1j*omhat)-0.5*n.exp(-1j*omhat)
 
 plt.figure(figsize=(0.7*6,0.7*8))
 plt.subplot(211)
