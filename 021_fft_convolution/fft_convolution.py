@@ -4,7 +4,7 @@
 # 
 import numpy as n
 import matplotlib.pyplot as plt
-
+import scipy.signal as s
 # input signals to be convolved
 a=n.arange(10)
 b=n.ones(20)
@@ -13,6 +13,8 @@ b=n.ones(20)
 A=n.fft.fft(a,30)
 B=n.fft.fft(b,30)
 ab=n.fft.ifft(A*B)
+# this function also does the same as the three lines above
+# ab=s.fftconvolve(a,b)
 plt.figure(figsize=(4,6))
 plt.subplot(311)
 plt.stem(a)
