@@ -6,12 +6,19 @@ import scipy.signal as s
 
 # create dynamic spectrum
 def spectrogram(x,M=1024,N=128,delta_n=100):
+    """
+    x = signal
+    M = FFT length
+    N = window function length
+    delta_n = step step
+    """
     max_t=int(n.floor((len(x)-N)/delta_n))
     t=n.arange(max_t)
     X=n.zeros([max_t,M],dtype=n.complex64)
     w=s.hann(N)
     xin=n.zeros(N)
     for i in range(max_t):
+        # zero padded windowed FFT
         xin[0:N]=x[i*delta_n+n.arange(N)]
         X[i,:]=n.fft.fft(w*xin,M)
     return(X)
@@ -28,12 +35,10 @@ x=n.sin(0.15e-14*nn**5.0)
 delta_n=25
 M=2048
 # create dynamic spectrum.
-# Use
-# - 2048 point FFT
-# - 128 samples for each spectra
-# - 100 sample increments in time
 S=spectrogram(x,M=M,N=128,delta_n=delta_n)
+# frequencies
 freqs=n.fft.fftfreq(2048,d=1.0/fs)
+# times
 time=delta_n*n.arange(S.shape[0])/fs
 
 # plot signal
