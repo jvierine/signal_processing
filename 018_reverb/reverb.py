@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Guitar reverb effect
+# Reverb effect for sound
 #
 import numpy as n
 import matplotlib.pyplot as plt
@@ -42,12 +42,6 @@ clip=n.array(clip,dtype=n.float32)
 
 h=reverb_model(room_length_std=50.0,n_walls=100,echo_magnitude=0.5)
 
-# round trip propagation delay in samples
-#delay_samples = int(sr*1000.0/343.0/2.0)
-#h=n.zeros(delay_samples+1)
-#h[0]=1.0
-#h[delay_samples]=0.5
-
 # plot the impulse response
 # if the impulse response is short, use stem plot
 # otherwise use normal plot (it is much faster)
@@ -79,7 +73,6 @@ echo_clip=ss.convolve(clip,h,mode="full")
 plt.subplot(212)
 plt.title("Processed audio")
 # scale numbers to 0..1 scale
-echo_clip = echo_clip/(1.5*n.max(n.abs(echo_clip)))
 plt.plot(time_vec[tidx],echo_clip[tidx])
 plt.xlabel("Time (s)")
 plt.ylabel("Amplitude")
@@ -89,5 +82,5 @@ plt.show()
 echo_clip=echo_clip/(n.max(n.abs(echo_clip)))
 
 print("Saving reverb.wav")
-# save as .wav file for 44.1 kHz sample rate
+# save as .wav file with 44.1 kHz sample rate
 sw.write("reverb.wav",44100,n.array(20e3*echo_clip,dtype=n.int16))

@@ -38,8 +38,8 @@ X[n.abs(om)<omc]=1.0
 
 # plot power spectral response in dB scale for
 # ideal and windowed filters
-plt.figure(figsize=(30,4))
-plt.subplot(122)
+plt.figure(figsize=(10,8))
+plt.subplot(212)
 plt.plot(om,10.0*n.log10(n.abs(X)**2.0),label="Ideal",color="blue")
 plt.plot(omw,10.0*n.log10(n.abs(WX)**2.0),label="Windowed",color="green")
 plt.ylim([-130,3])
@@ -49,7 +49,7 @@ plt.ylabel("$10\log_{10}|H(\hat{\omega})|^2$")
 plt.title("Magnitude response")
 
 # plot the impulse response of ideal and windowed filter.
-plt.subplot(121)
+plt.subplot(211)
 plt.stem(nn,sinc,"b",markerfmt="bo",label="Ideal")
 plt.plot(nn,n.max(sinc)*wf,label="Window",color="green")
 plt.stem(nn,wf*sinc,"g",markerfmt="go",label="Windowed")

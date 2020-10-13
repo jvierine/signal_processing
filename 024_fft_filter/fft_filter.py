@@ -55,8 +55,8 @@ WH[0:400]=1.0/n.abs(WX[0:400]) # attenuate strong frequencies
 WH[1400:1800]=1.0/n.abs(WX[1400:1800])  # attenuate strong frequencies
 WH[14000:15000]=1.0/n.abs(WX[14000:15000])  # attenuate strong frequencies
 
-plt.semilogy(n.abs(WX),label="|\hat{x}[k]|")
-plt.semilogy(n.abs(WX*WH),label="|\hat{y}[k]|")
+plt.semilogy(n.abs(WX),label="$|\hat{x}[k]|$")
+plt.semilogy(n.abs(WX*WH),label="$|\hat{y}[k]|$")
 plt.legend()
 plt.title("Original and filtered spectrum")
 plt.tight_layout()
@@ -72,13 +72,13 @@ plt.subplot(211)
 plt.plot(nn,wy)
 plt.title("Filtered signal")
 plt.xlabel("$n$")
-plt.ylabel("y[n]")
+plt.ylabel("$y[n]$")
 
 plt.subplot(212)
 plt.plot(nn,weak_signal)
 plt.title("Original weak signal")
 plt.xlabel("$n$")
-plt.ylabel("x_2[n]")
+plt.ylabel("$x_2[n]$")
 plt.tight_layout()
 plt.savefig("filter_filtered.png")
 plt.show()

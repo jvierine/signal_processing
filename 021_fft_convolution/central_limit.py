@@ -23,5 +23,6 @@ for i in range(10):
     plt.text(0,i+1.1,"%d"%(i))
     b=s.fftconvolve(a,b)
 plt.axis("off")
-plt.savefig("central_limit.png")
+plt.tight_layout()
+plt.savefig("central_limit.png",bbox_inches='tight')
 plt.show()
