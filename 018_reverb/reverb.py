@@ -40,7 +40,9 @@ if len(clip.shape)==2: # if stereo, only use one channel
 # make sure the clip is float32
 clip=n.array(clip,dtype=n.float32)
 
-h=reverb_model(room_length_std=50.0,n_walls=100,echo_magnitude=0.5)
+# this is the impulse response that determines the
+# acoustics of a room
+h=reverb_model(room_length_std=15.0,n_walls=100,echo_magnitude=0.5)
 
 # plot the impulse response
 # if the impulse response is short, use stem plot
@@ -67,7 +69,34 @@ plt.xlabel("Time (s)")
 plt.ylabel("Amplitude")
 
 # convolve the clip with the impulse response
+# scipy.signal.convolve
 echo_clip=ss.convolve(clip,h,mode="full")
+
+# fft of the convolved
+Y=n.fft.fft(echo_clip)
+# frequency response of the room (zero padded dft)
+H=n.fft.fft(h,len(echo_clip))
+
+inverse_filter=n.real(n.fft.ifft(1.0/H))
+plt.figure()
+plt.plot(n.fft.fftshift(inverse_filter))
+plt.title("inverse filter")
+plt.show()
+
+# deconvolution in frequency domain
+# lambda[n] = F^{-1}(1/H)
+X_r=Y/H
+# attempt to reconstruct original signal
+x_r = n.real(n.fft.ifft(X_r+1e-6))
+
+plt.figure()
+plt.subplot(211)
+plt.title("Original")        
+plt.plot(clip[0:40000])
+plt.subplot(212)
+plt.plot(x_r[0:40000])
+plt.title("Reconstruction")        
+plt.show()
 
 # plot the audio
 plt.subplot(212)
