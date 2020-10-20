@@ -15,4 +15,5 @@ zeros,poles,k=s.iirdesign(100.0, 200.0, gpass=1.0, gstop=100, ftype='ellip', out
 # return the filter coefficients for the IIR filter
 b,a=s.iirdesign(100.0, 200.0, gpass=1.0, gstop=100, ftype='ellip', output="ba",fs=sample_rate)
 
+# Plot the system function and the magnitude response of the IIR filter.
 plot_h.plot_hmag("ex_design.png",zeros=zeros,poles=poles,vmin=-150,fs=sample_rate)
