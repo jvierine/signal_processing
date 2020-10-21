@@ -72,23 +72,6 @@ plt.ylabel("Amplitude")
 # scipy.signal.convolve
 echo_clip=ss.convolve(clip,h,mode="full")
 
-# fft of the convolved
-Y=n.fft.fft(echo_clip)
-# frequency response of the room (zero padded dft)
-H=n.fft.fft(h,len(echo_clip))
-
-inverse_filter=n.real(n.fft.ifft(1.0/H))
-plt.figure()
-plt.plot(n.fft.fftshift(inverse_filter))
-plt.title("inverse filter")
-plt.show()
-
-# deconvolution in frequency domain
-# lambda[n] = F^{-1}(1/H)
-X_r=Y/H
-# attempt to reconstruct original signal
-x_r = n.real(n.fft.ifft(X_r+1e-6))
-
 plt.figure()
 plt.subplot(211)
 plt.title("Original")        
