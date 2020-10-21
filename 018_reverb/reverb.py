@@ -42,7 +42,7 @@ clip=n.array(clip,dtype=n.float32)
 
 # this is the impulse response that determines the
 # acoustics of a room
-h=reverb_model(room_length_std=15.0,n_walls=100,echo_magnitude=0.5)
+h=reverb_model(room_length_std=150.0,n_walls=100,echo_magnitude=0.5)
 
 # plot the impulse response
 # if the impulse response is short, use stem plot
@@ -72,22 +72,14 @@ plt.ylabel("Amplitude")
 # scipy.signal.convolve
 echo_clip=ss.convolve(clip,h,mode="full")
 
-plt.figure()
-plt.subplot(211)
-plt.title("Original")        
-plt.plot(clip[0:40000])
-plt.subplot(212)
-plt.plot(x_r[0:40000])
-plt.title("Reconstruction")        
-plt.show()
-
 # plot the audio
 plt.subplot(212)
-plt.title("Processed audio")
+plt.title("Convolution output")
 # scale numbers to 0..1 scale
 plt.plot(time_vec[tidx],echo_clip[tidx])
 plt.xlabel("Time (s)")
 plt.ylabel("Amplitude")
+plt.tight_layout()
 plt.show()
 
 # normalize to unity
