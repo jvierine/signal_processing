@@ -31,36 +31,10 @@ nn=n.arange(4096)
 # generate a chirp signal
 x=n.sin(0.15e-14*nn**5.0)
 
-# time step
-delta_n=25
-M=2048
-# create dynamic spectrum.
-S=spectrogram(x,M=M,N=128,delta_n=delta_n)
-# frequencies
-freqs=n.fft.fftfreq(2048,d=1.0/fs)
-# times
-time=delta_n*n.arange(S.shape[0])/fs
-
-
-
-# plot signal
-plt.figure(figsize=(12,10))
-plt.subplot(211)
-plt.plot(nn/fs,x)
-plt.title("Signal $x[n]$")
-plt.xlabel("Time (s)")
-plt.ylabel("Signal amplitude")
-plt.subplot(212)
-
-plt.title("Spectrogram")
-plt.pcolormesh(time,freqs[0:int(M/2)],n.transpose(10.0*n.log10(n.abs(S[:,0:int(M/2)])**2.0)),vmin=0)
-plt.xlim([0,n.max(time)])
-plt.ylim([0,fs/2.0])
+# alternatively, you can use the matplotlib
+# implementation
+mspec,mfreq,mt,mim=plt.specgram(x,NFFT=128,pad_to=2048,noverlap=128-25,Fs=fs,scale="dB",vmin=-50,vmax=-20)
 plt.xlabel("Time (s)")
 plt.ylabel("Frequency (Hz)")
-cb=plt.colorbar(orientation="horizontal")
-cb.set_label("dB")
-plt.tight_layout()
-plt.savefig("dynspec.png")
+plt.colorbar()
 plt.show()
-
