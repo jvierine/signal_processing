@@ -19,7 +19,7 @@ def dft_dtft(x,N,sample_rate=1e3):
 # signal (FIR filter coefficients)
 sample_rate=10e3
 t=n.arange(-20,20)/sample_rate
-# make a filter that selects 2.5 kHz signals
+# make a filter that selects 1 kHz signals
 f0=1e3
 
 # Rectangular windowed frequency selective filter

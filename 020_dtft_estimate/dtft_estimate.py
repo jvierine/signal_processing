@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 # Calculate the DTFT of signal x using zero-padded DFT
 # at N evenly spaced points between -\pi and \pi
 def dft_dtft(x,N):
+    # the N parameter determines the length of the DFT
+    # is N > len(x), then the signal x is zero padded
     X=n.fft.fft(x,N)
     # normalized angular frequency step
     dom=2.0*n.pi/N
@@ -24,13 +26,19 @@ H=he(om,L=20)
 # signal (FIR filter coefficients)
 x=n.repeat(1.0/20.0,20)
 
-X,om_dft=dft_dtft(x,32)
+X,om_dft=dft_dtft(x,256)
+
+# zero padded signal
+x_zp=n.zeros(256)
+x_zp[0:20]=x
+plt.stem(x_zp)
+plt.show()
 
 plt.figure(figsize=(6,4))
 plt.plot(om,n.abs(H),color="C0",label="Analytic")
 plt.stem(om_dft,n.abs(X),linefmt="C1-",markerfmt="C1o",basefmt="C1",label="DFT")
 plt.legend()
-plt.title("N=32")
+plt.title("N=256")
 plt.xlabel("$\hat{\omega}$")
 plt.ylabel("$|\mathcal{H}(\hat{\omega})|$")
 plt.savefig("dtft_estimate.png")
