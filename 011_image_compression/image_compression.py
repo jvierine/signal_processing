@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as n
-import scipy.ndimage as si
+#import scipy.ndimage as si
+import imageio as si
 
 #
 # 2d fft image, remove compression_ratio*(width*height) spectral components
@@ -27,7 +28,7 @@ def compress_image(image,compression_ratio=0.95):
     return((comp_image,image_fft))
 
 # Read image. Assume the image is perfect
-image=si.imread("husky.jpg", flatten=True)
+image=si.imread("husky.jpg", as_gray=True)
 
 # how much do we compress the image. 0 is no compression, 1.0 is nearly 100% compression
 # (we still have at least one spectral component)
