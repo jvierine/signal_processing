@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # compression_ratio=0.95 means that 95%
 # of the smallest amplitude spectral
 # components are thrown away
-cr=0.5
+cr=0.999
 
 # read wav file
 ts=sw.read("7na.wav")
@@ -61,8 +61,8 @@ plt.show()
 # plot the first 10000 samples of the time-domain audio signal
 time_vec=n.arange(len(clip))/float(sr)
 plt.title("Waveform")
-plt.plot(time_vec[0:10000]*1e3,clip[0:10000],label="Original")
-plt.plot(time_vec[0:10000]*1e3,compressed[0:10000],label="Compressed")
+plt.plot(time_vec[0:100000]*1e3,clip[0:100000],label="Original")
+plt.plot(time_vec[0:100000]*1e3,compressed[0:100000],label="Compressed")
 plt.legend()
 plt.xlabel("Time (ms)")
 plt.ylabel("Audio waveform")
