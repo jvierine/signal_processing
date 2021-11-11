@@ -9,8 +9,6 @@ omhat = n.linspace(-n.pi,n.pi,num=100000)
 def h50_100(z):
     om0=2.0*n.pi*50.0/(44.1e3)
     om1=2.0*n.pi*1000.0/(44.1e3)
-    print(om0)
-    print(om1)    
     return(z**(-4)*( z**4 - 2*z**3*(n.cos(om1)+n.cos(om0))
                      + 2*z**2*(1+2*n.cos(om1)*n.cos(om0))
                      - 2*z*(n.cos(om0)+n.cos(om1)) + 1))
