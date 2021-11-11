@@ -15,9 +15,8 @@ def h50_100(z):
                      + 2*z**2*(1+2*n.cos(om1)*n.cos(om0))
                      - 2*z*(n.cos(om0)+n.cos(om1)) + 1))
 
-
 magresp = n.abs(h50_100(n.exp(1j*omhat)))
 plt.plot(omhat,10.0*n.log10(magresp**2.0))
 plt.xlabel("Frequency $\hat{\omega}$ (rad/sample)")
-plt.ylabel("Magnitude response $|\mathcal{H}(\hat{\omega})|$")
+plt.ylabel("Magnitude response $10\log_{10}(|\mathcal{H}(\hat{\omega})|^2)$ (dB)")
 plt.show()
