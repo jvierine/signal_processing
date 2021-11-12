@@ -46,15 +46,20 @@ plt.savefig("windowed_signals.png")
 plt.show()
 
 # analyze spectrum
-# zero padded DFT (no window)
-Y=n.fft.rfft(y,2*N)
+# zero padded DFT to be of length 2*N
+Y=n.fft.fft(y,2*N)
 # windowed zero-padded DFT
 w=s.hann(N)
-WY=n.fft.rfft(w*y,2*N)
-# frequencies
-om=n.linspace(0,n.pi,num=len(Y))
-plt.semilogy(om,n.abs(Y),label="DFT")
-plt.semilogy(om,n.abs(WY),label="Windowed DFT")
+# zero padded DFT to be of length 2*N
+WY=n.fft.fft(w*y,2*N)
+# frequencies in radians per sample
+om=n.fft.fftfreq(len(Y),d=1)*2.0*n.pi
+# reorder frequencies so that we go from -pi to pi
+om=n.fft.fftshift(om)
+Y=n.fft.fftshift(Y)
+WY=n.fft.fftshift(WY)
+plt.plot(om,10.0*n.log10(n.abs(Y)**2.0),label="DFT")
+plt.plot(om,10.0*n.log10(n.abs(WY)**2.0),label="Windowed DFT")
 plt.ylabel("Spectral power (dB)")
 plt.xlabel("Frequency ($\hat{\omega}$)")
 plt.title("Power spectrum")
