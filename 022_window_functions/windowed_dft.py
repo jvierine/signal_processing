@@ -54,10 +54,11 @@ w=s.hann(N)
 WY=n.fft.fft(w*y,2*N)
 # frequencies in radians per sample
 om=n.fft.fftfreq(len(Y),d=1)*2.0*n.pi
-# reorder frequencies so that we go from -pi to pi
+# reorder frequencies so that we go from -pi to pi instead of 0 to 2\pi
 om=n.fft.fftshift(om)
 Y=n.fft.fftshift(Y)
 WY=n.fft.fftshift(WY)
+
 plt.plot(om,10.0*n.log10(n.abs(Y)**2.0),label="DFT")
 plt.plot(om,10.0*n.log10(n.abs(WY)**2.0),label="Windowed DFT")
 plt.ylabel("Spectral power (dB)")
