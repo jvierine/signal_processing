@@ -1,5 +1,8 @@
 import h5py
 import matplotlib.pyplot as plt
+from os.path import dirname, join
+
+path = dirname(__file__)
 
 def read_data(fname):
     h=h5py.File(fname,"r")
@@ -11,10 +14,10 @@ def read_data(fname):
     return(detector_name,start_time,strain)
 
 # read hanford measurement
-h1_name,h1_start_time,h1_strain=read_data("H-H1_LOSC_4_V2-1126259446-32.hdf5")
+h1_name,h1_start_time,h1_strain=read_data(join(path, "H-H1_LOSC_4_V2-1126259446-32.hdf5"))
 
 # read livingston measurement
-l1_name,l1_start_time,l1_strain=read_data("L-L1_LOSC_4_V2-1126259446-32.hdf5")
+l1_name,l1_start_time,l1_strain=read_data(join(path, "L-L1_LOSC_4_V2-1126259446-32.hdf5"))
     
 plt.plot(h1_strain)
 plt.plot(l1_strain)
