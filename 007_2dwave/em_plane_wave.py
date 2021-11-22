@@ -14,7 +14,7 @@ ct,cx=n.meshgrid(t,x)
 
 plt.pcolormesh(ct,cx,n.real(n.exp(-1j*2.0*n.pi*cx/wavelength)*n.exp(1j*2.0*n.pi*f*ct)),vmin=-1,vmax=1)
 cb=plt.colorbar()
-cb.set_label("Electric field")
+cb.set_label("Electric field (V/m)")
 plt.xlabel("Time (s)")
 plt.ylabel("Position (m)")
 plt.tight_layout()
