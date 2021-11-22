@@ -12,7 +12,7 @@ x=n.linspace(0,2*wavelength,num=1000)
 
 ct,cx=n.meshgrid(t,x)
 
-plt.pcolormesh(ct,cx,n.real(n.exp(1j*2.0*n.pi*cx/wavelength)*n.exp(1j*2.0*n.pi*f*ct)),vmin=-1,vmax=1)
+plt.pcolormesh(ct,cx,n.real(n.exp(-1j*2.0*n.pi*cx/wavelength)*n.exp(1j*2.0*n.pi*f*ct)),vmin=-1,vmax=1)
 cb=plt.colorbar()
 cb.set_label("Electric field")
 plt.xlabel("Time (s)")
