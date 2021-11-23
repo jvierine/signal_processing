@@ -27,7 +27,7 @@ freq_resp = n.zeros(N_freqs,dtype=n.complex)
 
 # let's use
 # L is length of filter
-L=100
+L=16
 for k in range(0,L):
     print(k)
     freq_resp = freq_resp + (1.0/L)*n.exp(-1j*omhat*k)
@@ -35,10 +35,12 @@ for k in range(0,L):
 # plot frequency response in power with decibel scale
 P_dB=10.0*n.log10(n.abs(freq_resp)**2.0)
 plt.plot(f_hertz,P_dB)
+# annotate the 300 Hz point on the x-axis
 plt.axvline(300.0,color="red")
+# annotate the -6 dB point on the y-axis
 plt.axhline(-6,color="red")
 
-
+# label axes
 plt.xlabel("Frequency (hertz)")
 plt.ylabel("Power (dB)")
 plt.title("Power spectral response of the running average filter with $L=%d$"%(L))
