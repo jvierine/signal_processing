@@ -34,7 +34,13 @@ for k in range(0,L):
 
 # plot frequency response in power with decibel scale
 P_dB=10.0*n.log10(n.abs(freq_resp)**2.0)
+
+
+# closed form solution
+P_dB2 = 10.0*n.log10(n.abs( (1.0/L)*(1-n.exp(-1j*omhat*L))/(1-n.exp(-1j*omhat)) )**2.0)
+
 plt.plot(f_hertz,P_dB)
+plt.plot(f_hertz,P_dB2)
 # annotate the 300 Hz point on the x-axis
 plt.axvline(300.0,color="red")
 # annotate the -6 dB point on the y-axis
