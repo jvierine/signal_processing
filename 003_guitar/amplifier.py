@@ -33,7 +33,9 @@ plt.show()
 out=amplify(x,alpha)
 
 # scale maximum absolute amplitude to 0.9, because 1.0 is the maximum allowed
-# by the file format
+# by the file .wav file format.
+# note that this will not allow you to hear the audio signal
+# amplitude increasing
 out = 0.9*out/n.max(n.abs(out)) 
 # write compressed output to wav file.
 

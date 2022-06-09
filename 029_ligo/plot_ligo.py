@@ -1,6 +1,8 @@
 import h5py
 import matplotlib.pyplot as plt
 from os.path import dirname, join
+import numpy as n
+import scipy.signal as s
 
 path = dirname(__file__)
 
@@ -19,6 +21,12 @@ h1_name,h1_start_time,h1_strain=read_data(join(path, "H-H1_LOSC_4_V2-1126259446-
 # read livingston measurement
 l1_name,l1_start_time,l1_strain=read_data(join(path, "L-L1_LOSC_4_V2-1126259446-32.hdf5"))
     
-plt.plot(h1_strain)
-plt.plot(l1_strain)
+#plt.plot(h1_strain)
+#plt.plot(l1_strain)
+#plt.show()
+
+# zero-padded FFT or DFT
+x_hat= n.fft.fftshift(n.fft.fft(s.hann(len(h1_strain))*h1_strain))
+
+plt.plot(10.0*n.log10(n.abs(x_hat)**2.0))
 plt.show()

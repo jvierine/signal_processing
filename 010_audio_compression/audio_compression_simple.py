@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # compression_ratio=0.95 means that 95%
 # of the smallest amplitude spectral
 # components are thrown away
-cr=0.999
+cr=0.99
 
 # read wav file
 ts=sw.read("7na.wav")

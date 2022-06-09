@@ -6,7 +6,7 @@ def compress_snippet(clip,compression_ratio=0.99):
     # length of sound clip
     L = len(clip)
     # half length (real valued signals have conjugate symmetric spectra)
-    L2 = L/2
+    L2 = int(L/2)
 
     ## compress audio
     
@@ -82,7 +82,7 @@ if len(clip.shape)==2: # if stereo, only use one channel
 # compress and decompress audio file
 # compression_ratio=0.95 means 95% reduction in 
 # file size. 
-cr=0.95
+cr=0.9
 
 # compress full length of the clip
 W=100000

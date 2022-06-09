@@ -25,7 +25,7 @@ for k in range(-N,N+1):
         k2=float(k)
         ck=(1.0/(n.pi*k2))*(n.exp(-1j*(n.pi/T)*k2*P))*n.sin(n.pi*k2*P/T)
         cks[ki]=ck
-        zn+= ck*n.exp(1j*(2.0*n.pi/T)*k*t)
+        zn+= ck*n.exp(1j*(2.0*n.pi/T)*k2*t)
     ki+=1
 
 # Plot the absolute values of the Fourier series coefficients
