@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import scipy.io.wavfile as sw
 import scipy.signal as ss
 
-def reverb_model(room_length_std=30.0,  # room wall to wall distance standard deviation in meters
+def reverb_model(room_length_std=300.0,  # room wall to wall distance standard deviation in meters
                  echo_magnitude=0.5,    # how much is reflected from a wall
                  n_echoes=10,           # number of echoes
                  n_walls=10,            # number of scattering surfaces 
@@ -24,6 +24,7 @@ def reverb_model(room_length_std=30.0,  # room wall to wall distance standard de
     for wi in range(n_walls):
         wall_dist=n.abs(n.random.randn(1)*room_length_std)
         for i in range(n_echoes):
+            print(i)
             idx=int( sr*(i+1)*wall_dist/c_sound )
             if idx < echo_len:
                 h[idx]=n.random.randn(1)*echo_magnitude**(i+1.0)
@@ -45,13 +46,13 @@ clip=n.array(clip,dtype=n.float32)
 h=reverb_model(room_length_std=15.0,n_walls=100,echo_magnitude=0.5)
 
 
-omhat = n.linspace(-n.pi,n.pi,num=10000)
-H=n.zeros(len(omhat),dtype=n.complex64)
-for i in range(len(h)):
-    H+=h[i]*n.exp(1j*omhat*float(i))
+#omhat = n.linspace(-n.pi,n.pi,num=10000)
+#H=n.zeros(len(omhat),dtype=n.complex64)
+#for i in range(len(h)):
+#    H+=h[i]*n.exp(1j*omhat*float(i))
 
-plt.plot(omhat,n.abs(H)**2.0)
-plt.show()
+#plt.plot(omhat,n.abs(H)**2.0)
+#plt.show()
 
 
 # plot the impulse response

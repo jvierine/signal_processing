@@ -58,5 +58,5 @@ plt.xlabel("Time (samples)")
 plt.ylabel("Autocorrelation function ($x[n]*x[-n]$)")
 plt.show()
 
-#chirp.tofile("chirp.bin")
-#chirp_ipp.tofile("chirp_ipp.bin")
+chirp.tofile("chirp.bin")
+chirp_ipp.tofile("chirp_ipp.bin")
